@@ -2,7 +2,7 @@
 /*
  * Plugin Name: ACF MUI Page builder
  * Description: Enable page builder field
- * Version: 0.0.1
+ * Version: 1.0.0
  * Requires at least: 6.2
  * Requires PHP: 8.2
  * Author: IT Consultis
