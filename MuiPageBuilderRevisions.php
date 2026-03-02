@@ -4,6 +4,8 @@ class MuiPageBuilderRevisions {
 
     const BLOCKS_META_KEY = 'blocks';
 
+    const MAX_REVISIONS = 20;
+
     public $revision_prefix = "_" . self::BLOCKS_META_KEY . ':revisions:';
 
     public function __construct() {
@@ -16,10 +18,30 @@ class MuiPageBuilderRevisions {
 
     function add_revisions_on_save($post_id) {
         $prev_blocks = get_field( self::BLOCKS_META_KEY, $post_id );
-            if($prev_blocks) {
-                $user = wp_get_current_user();
-                update_post_meta($post_id, "{$this->revision_prefix}{$user->user_login}:{$user->ID}:" . time(), $prev_blocks);
+        if ($prev_blocks) {
+            $user = wp_get_current_user();
+            update_post_meta($post_id, "{$this->revision_prefix}{$user->user_login}:{$user->ID}:" . time(), $prev_blocks);
+
+            // 仅保留最近 MAX_REVISIONS 条记录，删除更早的
+            global $wpdb;
+            $like = $wpdb->esc_like($this->revision_prefix) . '%';
+            $rows = $wpdb->get_col($wpdb->prepare(
+                "SELECT meta_key FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key LIKE %s",
+                $post_id,
+                $like
+            ));
+            if (count($rows) > self::MAX_REVISIONS) {
+                usort($rows, function ($a, $b) {
+                    $ts_a = (int) substr(strrchr($a, ':'), 1);
+                    $ts_b = (int) substr(strrchr($b, ':'), 1);
+                    return $ts_b - $ts_a; // 新的在前
+                });
+                $to_delete = array_slice($rows, self::MAX_REVISIONS);
+                foreach ($to_delete as $meta_key) {
+                    delete_post_meta($post_id, $meta_key);
+                }
             }
+        }
     }
 
     public function handle_delete_revision() {
