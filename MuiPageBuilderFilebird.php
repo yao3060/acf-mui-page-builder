@@ -296,7 +296,7 @@ WHERE posts.ID IN ($ids)
                 'content_type' => $mime_type,
                 'size'         => $metadata['filesize'] ?? 0,
             ];
-            if (str_starts_with($mime_type, 'image/')) {
+            if ( $mime_type !== "image/svg+xml" && str_starts_with($mime_type, 'image/')) {
                 $meta['exif'] = [
                     'width'  => $metadata['width'],
                     'height' => $metadata['height'],
