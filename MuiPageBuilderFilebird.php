@@ -296,7 +296,11 @@ WHERE posts.ID IN ($ids)
                 'content_type' => $mime_type,
                 'size'         => $metadata['filesize'] ?? 0,
             ];
-            if ($metadata && $metadata['width'] && $metadata['height']) {
+            if (
+                is_array($metadata) &&
+                !empty($metadata['width']) &&
+                !empty($metadata['height'])
+            ) {
                 $meta['exif'] = [
                     'width'  => $metadata['width'],
                     'height' => $metadata['height'],
