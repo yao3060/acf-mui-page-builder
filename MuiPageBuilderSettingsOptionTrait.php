@@ -5,7 +5,7 @@ trait MuiPageBuilderSettingsOptionTrait {
 	const OPTIONS_ID = 'acf_mui_page_builder_settings';
 
 	/**
-	 * @var array{editor_url: string}
+	 * @var array{editor_url: string, username: string, password: string}
 	 */
 	private array $options;
 
@@ -17,6 +17,8 @@ trait MuiPageBuilderSettingsOptionTrait {
 		if (empty($options)) {
 			$options =  [
 				'editor_url' => '',
+        'username' => '',
+        'password' => '',
 			];
 		}
 		$this->options = $options;

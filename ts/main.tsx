@@ -19,6 +19,9 @@ window.acf.addAction('prepare_field', (field) => {
   }
   const settings = JSON.parse(scriptEl.textContent) as {
     editor_url: string,
+    username: string,
+    password: string,
+    rest_api_url: string,
   };
   const container = document.createElement('div');
   el.appendChild(container);
@@ -43,6 +46,11 @@ window.acf.addAction('prepare_field', (field) => {
         if (initialized || !editor.element) {
           return;
         }
+        const basicAuthToken = btoa(`${settings.username}:${settings.password}`);
+        editor.dispatch({
+          type: 'editor/basicAuthToken',
+          payload: basicAuthToken,
+        });
         editor.setData(initialData);
         const event = new CustomEvent('muiEditLoad', {
           detail: {
