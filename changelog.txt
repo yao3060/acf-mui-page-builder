@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 2.0.0 =
+Remove jwtAuth, use WordPress build-in Basic Auth instead.
+
 = 1.0.0 =
 Release Date: 2026-03-02
 Add maximum revisions limit for page builder saves

@@ -1,6 +1,6 @@
 {
     "name": "yao3060/acf-mui-page-builder",
-    "version": "1.0.3",
+    "version": "2.0.0",
     "description": "Enable page builder field",
     "type": "wordpress-plugin",
     "license": "GPL-3.0-or-later",
@@ -10,5 +10,11 @@
             "email": "yao.yingying@it-consultis.net"
         }
     ],
-    "require": {}
+    "require": {
+      "php": ">=8.3"
+    },
+    "require-dev": {
+        "php-stubs/wordpress-stubs": "^6.9",
+        "php-stubs/acf-pro-stubs": "^6.5"
+    }
 }

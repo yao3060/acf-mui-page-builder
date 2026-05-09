@@ -16,9 +16,6 @@ class AcfFieldMuiPageBuilder extends \acf_field
     public $show_in_rest = true;
 
 
-    private JWTAuth\Auth $jwt;
-
-
     /**
      * Constructor.
      */
@@ -66,7 +63,7 @@ class AcfFieldMuiPageBuilder extends \acf_field
     public function initialize()
     {
         if (is_admin()) {
-            $this->jwt = new JWTAuth\Auth('acf-mui-page-builder', 1);
+
             $this->add_action('admin_enqueue_scripts', function () {
                 $path = __DIR__ . '/dist/main.js';
                 $src = plugins_url('/acf-mui-page-builder/dist/main.js');
@@ -81,21 +78,6 @@ class AcfFieldMuiPageBuilder extends \acf_field
                 wp_enqueue_script($handle);
             });
         }
-    }
-
-    public function getCurrentUserJWTToken(): string
-    {
-        $get_current_user = wp_get_current_user();
-        add_filter('jwt_auth_iss', fn() => site_url(), 10);
-        add_filter('jwt_auth_expire', function ($expire, $issued_at) {
-            return $issued_at + WEEK_IN_SECONDS;
-        }, 10, 2);
-        $token = $this->jwt->generate_token($get_current_user);
-
-        if (empty($token) || $token instanceof WP_Error) {
-            return '';
-        }
-        return $token;
     }
 
     /**
@@ -143,7 +125,6 @@ class AcfFieldMuiPageBuilder extends \acf_field
             $current_language = wpml_get_current_language();
             $editor_url = $options['editor_url_' . $current_language] ?? $editor_url;
         }
-        $token = $this->getCurrentUserJWTToken();
 
         if (!empty($editor_url)) {
 
@@ -156,7 +137,6 @@ class AcfFieldMuiPageBuilder extends \acf_field
                     echo json_encode([
                         'editor_url' => $editor_url,
                         'rest_api_url' => rest_url(),
-                        'jwt_token' => $token,
                     ])
                     ?>
                 </script>

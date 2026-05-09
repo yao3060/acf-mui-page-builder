@@ -1,0 +1,7 @@
+{
+  "intelephense.stubs": ["wordpress", "Core", "standard", "superglobals"],
+  "intelephense.environment.includePaths": [
+    "${workspaceFolder}/vendor/php-stubs/wordpress-stubs",
+    "${workspaceFolder}/vendor/php-stubs/acf-pro-stubs"
+  ]
+}

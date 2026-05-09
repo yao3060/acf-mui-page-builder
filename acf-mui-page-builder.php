@@ -28,16 +28,17 @@ $mui_filebird = new MuiPageBuilderFilebird();
 
 add_action('admin_notices', function () {
 
-    if (!function_exists('acf_register_field_type') || !class_exists(JWTAuth\Setup::class)) {
+    if (!function_exists('acf_register_field_type')) {
         // throw new Error('Plugin advanced-custom-fields (ACF) must be installed first.');
         echo '<div class="notice notice-error">
-                <p>Plugin <a href="https://www.advancedcustomfields.com/">advanced-custom-fields</a> and <a href="https://wordpress.org/plugins/jwt-auth/">JWT Auth</a> must be installed first.</p>
+                <p>Plugin <a href="https://www.advancedcustomfields.com/">advanced-custom-fields</a>
+                must be installed first.</p>
              </div>';
     }
 });
 
 add_action('init', function () {
-    if (!function_exists('acf_register_field_type') || !class_exists(JWTAuth\Setup::class)) {
+    if (!function_exists('acf_register_field_type')) {
         return;
     }
 

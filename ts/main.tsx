@@ -19,7 +19,6 @@ window.acf.addAction('prepare_field', (field) => {
   }
   const settings = JSON.parse(scriptEl.textContent) as {
     editor_url: string,
-    jwt_token: string,
   };
   const container = document.createElement('div');
   el.appendChild(container);
@@ -38,16 +37,12 @@ window.acf.addAction('prepare_field', (field) => {
         height: '80vh',
         border: '1px solid #eee',
       }}
-      allow="clipboard-write; clipboard-read; fullscreen;"
-      allowfullscreen
       id="wordpress-preview-iframe"
       src={settings.editor_url}
       onLoad={(editor: EditorInstance) => {
-        initialized = true;
-        editor.dispatch({
-          type: 'editor/jwtToken',
-          payload: settings.jwt_token
-        });
+        if (initialized || !editor.element) {
+          return;
+        }
         editor.setData(initialData);
         const event = new CustomEvent('muiEditLoad', {
           detail: {
@@ -55,7 +50,9 @@ window.acf.addAction('prepare_field', (field) => {
           },
         });
         window.muiEdit = editor;
+        console.log('editor:onLoad', event);
         document.dispatchEvent(event);
+        initialized = true;
       }}
       onChange={(newBlocks) => {
         if (!initialized) {
