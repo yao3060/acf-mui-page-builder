@@ -10,6 +10,7 @@ declare global {
             name: string,
             type: string,
         },
+        val(value?: string): string | void;
     }
     interface Acf {
         addAction(action: 'prepare' | 'ready', callback: () => void);

@@ -5,6 +5,7 @@
     "${workspaceFolder}/vendor/php-stubs/acf-pro-stubs"
   ],
   "cSpell.words": [
+    "consultis",
     "muipagebuilder"
   ]
 }

@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 2.0.3 =
+Fixed a compatibility issue between the ACF field "pageBuilder" and WordPress revisions.
+
 = 2.0.0 =
 Remove jwtAuth, use WordPress build-in Basic Auth instead.
 

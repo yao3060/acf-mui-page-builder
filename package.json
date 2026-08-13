@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "mui-edit": "^0.1.1-alpha5",
+    "@it-consultis/page-builder": "^1.1.35",
     "preact": "^10.16.0",
     "react": "npm:@preact/compat",
     "react-dom": "npm:@preact/compat"

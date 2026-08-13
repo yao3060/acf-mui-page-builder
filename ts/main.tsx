@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import EditorIframe, { EditorInstance } from 'mui-edit/EditorIframe';
-import { Block } from 'mui-edit';
+import EditorIframe, { EditorInstance } from '@it-consultis/page-builder/EditorIframe';
+import { Block } from '@it-consultis/page-builder';
 
 // Define a global variable because imports are not accessible in define callback
 
@@ -68,7 +68,7 @@ window.acf.addAction('prepare_field', (field) => {
         }
         window.clearTimeout(timeoutId);
         timeoutId = window.setTimeout(() => {
-          inputEl.value = JSON.stringify(newBlocks);
+          field.val(JSON.stringify(newBlocks));
         }, 200);
       }}
     />,

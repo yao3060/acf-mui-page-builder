@@ -2,7 +2,7 @@
 /*
  * Plugin Name: ACF MUI Page builder
  * Description: Enable page builder field
- * Version: 1.0.0
+ * Version: 2.0.3
  * Requires at least: 6.2
  * Requires PHP: 8.2
  * Author: IT Consultis
@@ -58,9 +58,6 @@ add_action('init', function () {
             false,
             '1.0.0' );
         } );
-
-        // disable `page` revisions
-        add_filter( 'wp_page_revisions_to_keep',  fn () => 0);
 
         // show 1 column in `page` editor page
         add_filter('screen_layout_columns', function($columns) {
